@@ -1,0 +1,37 @@
+version: 2
+
+sources:
+  - name: bronze
+    description: >
+      Raw, untouched extracts from Stats SA QLFS PDF releases. Loaded by
+      the Python ingestion script in /bronze -- values are stored as raw
+      text exactly as they appeared in the source PDF, with no cleaning
+      or type conversion applied.
+    schema: main
+    tables:
+      - name: bronze_qlfs_table_a
+        description: >
+          One row per labour market indicator per quarter, as extracted
+          from Table A of each quarterly QLFS release. Row labels are
+          not standardized across quarters -- Stats SA changed several
+          label names in the Q3:2025 questionnaire revision.
+        columns:
+          - name: year
+            description: Calendar year of the release
+          - name: quarter
+            description: Quarter number (1-4) of the release
+          - name: row_label
+            description: >
+              The raw indicator label as it appeared in the source PDF.
+              NOT standardized -- e.g. "Not economically active" (pre
+              Q3:2025) and "Outside the Labour Force" (post Q3:2025)
+              refer to the same underlying concept.
+          - name: raw_value_text
+            description: >
+              Space-separated raw numbers exactly as extracted, e.g.
+              "41 691 42 068 42 189 121 498 0,3 1,2". Not yet parsed
+              into individual typed values.
+          - name: source_url
+            description: The exact PDF URL this row was extracted from
+          - name: ingested_at
+            description: UTC timestamp of when this row was loaded
