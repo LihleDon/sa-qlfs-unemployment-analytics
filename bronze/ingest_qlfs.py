@@ -244,4 +244,4 @@ def run(test_single_release: bool = False):
 
 
 if __name__ == "__main__":
-    run(test_single_release=True)
+    run(test_single_release=False)
