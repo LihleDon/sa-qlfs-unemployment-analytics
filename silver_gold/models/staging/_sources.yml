@@ -14,24 +14,43 @@ sources:
           One row per labour market indicator per quarter, as extracted
           from Table A of each quarterly QLFS release. Row labels are
           not standardized across quarters -- Stats SA changed several
-          label names in the Q3:2025 questionnaire revision.
+          label names in the Q3:2025 questionnaire revision, and even
+          within a single schema era, wording varies release to release
+          (e.g. "Employed" vs "Employment").
         columns:
           - name: year
             description: Calendar year of the release
           - name: quarter
             description: Quarter number (1-4) of the release
           - name: row_label
-            description: >
-              The raw indicator label as it appeared in the source PDF.
-              NOT standardized -- e.g. "Not economically active" (pre
-              Q3:2025) and "Outside the Labour Force" (post Q3:2025)
-              refer to the same underlying concept.
+            description: The raw indicator label as it appeared in the source PDF, not standardized
           - name: raw_value_text
-            description: >
-              Space-separated raw numbers exactly as extracted, e.g.
-              "41 691 42 068 42 189 121 498 0,3 1,2". Not yet parsed
-              into individual typed values.
+            description: Space-separated raw numbers exactly as extracted, not yet parsed
           - name: source_url
             description: The exact PDF URL this row was extracted from
           - name: ingested_at
             description: UTC timestamp of when this row was loaded
+
+  - name: python_silver
+    description: >
+      Typed, numerically-parsed QLFS data produced by /parse_to_silver.py.
+      This step lives in Python rather than dbt SQL because reconstructing
+      thousands-separated numbers from Bronze's raw text requires
+      stateful, iterative logic that's clearer as a loop than as nested
+      SQL CASE expressions. Schema conformance (mapping old/new row
+      labels to one consistent metric_name) happens downstream, in dbt.
+    schema: main
+    tables:
+      - name: silver_qlfs_parsed
+        description: One row per indicator per quarter, with real typed numeric values.
+        columns:
+          - name: row_category
+            description: "'rate', 'thousands', or 'thousands_partial' (see parse_note for partial rows)"
+          - name: current_value
+            description: This quarter's value
+          - name: prior_qtr_value
+            description: Previous quarter's value
+          - name: prior_year_value
+            description: Same quarter, one year prior
+          - name: parse_success
+            description: Whether parsing succeeded -- should always be true; kept for transparency

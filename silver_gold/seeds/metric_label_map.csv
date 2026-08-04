@@ -1,0 +1,40 @@
+raw_label,metric_name,metric_group
+Population 15-64 years,population,levels
+Population 15–64 years,population,levels
+Population 15–64 yrs,population,levels
+Labour Force,labour_force,levels
+Labour force,labour_force,levels
+Employed,employed,levels
+Employment,employed,levels
+Formal sector (non-agricultural),formal_sector,levels
+Formal sector*,formal_sector,levels
+Informal sector (non-agricultural),informal_sector,levels
+Informal sector*,informal_sector,levels
+Agriculture,agriculture,levels
+Private households,household_sector,levels
+Household sector,household_sector,levels
+Unemployed,unemployed,levels
+Unemployment,unemployed,levels
+Not economically active,outside_labour_force,levels
+Outside the Labour Force,outside_labour_force,levels
+Discouraged work-seekers,discouraged_work_seekers,levels
+Discouraged job-seekers,discouraged_work_seekers,levels
+Discouraged jobseekers,discouraged_work_seekers,levels
+Other (not economically active),other_outside_labour_force,levels
+Other (Outside the labour force),other_outside_labour_force,levels
+Potential Labour Force,potential_labour_force,levels
+Available job-seekers,available_job_seekers,levels
+Available potential job-seekers,available_job_seekers,levels
+Available potential jobseekers,available_job_seekers,levels
+Other (available job-seekers),other_available_job_seekers,levels
+Other (available potential job-seekers),other_available_job_seekers,levels
+Other (available potential jobseekers),other_available_job_seekers,levels
+Unavailable job-seekers,unavailable_job_seekers,levels
+Unavailable jobseekers,unavailable_job_seekers,levels
+Unemployment rate,unemployment_rate,rates
+LU1- Unemployment rate,unemployment_rate,rates
+Employed/population ratio (absorption),absorption_rate,rates
+Employed / population ratio (Absorption),absorption_rate,rates
+Labour force participation rate,labour_force_participation_rate,rates
+Inactivity rate,inactivity_rate,rates
+LU4 - Composite measure of labour underutilisation,lu4_composite_underutilisation,rates

@@ -40,4 +40,19 @@ print(con.execute("""
     ORDER BY year, quarter
 """).fetchdf().to_string())
 
+print("\n=== Rows with NO metric_name match (should be empty) ===")
+print(con.execute("""
+    SELECT DISTINCT raw_row_label
+    FROM main_silver.stg_qlfs_conformed
+    WHERE metric_name IS NULL
+""").fetchdf().to_string())
+
+print("\n=== Metric coverage: quarters per metric_name (spot the gaps) ===")
+print(con.execute("""
+    SELECT metric_name, metric_group, COUNT(*) as quarters_present
+    FROM main_silver.stg_qlfs_conformed
+    GROUP BY 1, 2
+    ORDER BY 2, 1
+""").fetchdf().to_string())
+
 con.close()
