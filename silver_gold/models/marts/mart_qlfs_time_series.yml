@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: mart_qlfs_time_series
+    description: >
+      One row per (quarter, metric) -- the final, dashboard-ready QLFS
+      time series. Built on top of stg_qlfs_conformed, which already
+      handles schema drift and label conformance, so this model is
+      pure presentation logic. Uniqueness of (period_date, metric_name)
+      is enforced by tests/assert_unique_period_metric.sql.
+    columns:
+      - name: period_date
+        description: First day of the quarter (e.g. 2025-01-01 for Q1 2025)
+        data_tests:
+          - not_null
+
+      - name: metric_name
+        data_tests:
+          - not_null
+
+      - name: value
+        description: The metric's value for this quarter (thousands, or a percentage for rate metrics)
+        data_tests:
+          - not_null

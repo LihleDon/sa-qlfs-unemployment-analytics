@@ -55,4 +55,12 @@ print(con.execute("""
     ORDER BY 2, 1
 """).fetchdf().to_string())
 
+print("\n=== Gold layer: unemployment_rate time series (final dashboard-ready shape) ===")
+print(con.execute("""
+    SELECT period_date, value, qtr_change_pct, yoy_change_pct
+    FROM main_gold.mart_qlfs_time_series
+    WHERE metric_name = 'unemployment_rate'
+    ORDER BY period_date
+""").fetchdf().to_string())
+
 con.close()
