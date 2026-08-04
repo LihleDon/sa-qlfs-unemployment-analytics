@@ -1,5 +1,17 @@
 version: 2
 
+# NOTE on Elementary anomaly tests:
+# volume_anomalies / dimension_anomalies / column_anomalies are
+# intentionally NOT used on this model. As of elementary v0.25.1, their
+# DuckDB dispatch generates a tuple-comparison subquery
+# ("(a, b) IN (SELECT x, y FROM ...)"), a pattern DuckDB does not
+# support (see DuckDB issue #20289: "Subquery returns 2 columns -
+# expected 1"). This is a confirmed upstream compatibility gap between
+# Elementary and DuckDB, not a project configuration issue. Elementary's
+# schema tracking, test-result history, and the `edr report` command all
+# work correctly and are used in this project; only the anomaly-scoring
+# generic tests are affected.
+
 models:
   - name: mart_qlfs_time_series
     description: >
