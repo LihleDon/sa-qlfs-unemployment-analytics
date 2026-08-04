@@ -1,0 +1,48 @@
+version: 2
+
+models:
+  - name: stg_qlfs_conformed
+    description: >
+      Every QLFS Table A row, numerically parsed and conformed onto a
+      single consistent metric_name across all schema eras (2022-2026).
+    columns:
+      - name: year
+        description: Calendar year of the release
+        data_tests:
+          - not_null
+
+      - name: quarter
+        description: Quarter number (1-4)
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: [1, 2, 3, 4]
+
+      - name: metric_name
+        description: >
+          The conformed, schema-drift-resistant metric identifier
+          (e.g. "population", "unemployment_rate"). Null would mean a
+          raw label wasn't found in the seed mapping -- this should
+          never happen; see tests/assert_no_unmapped_labels.sql for the
+          explicit version of this check.
+        data_tests:
+          - not_null
+
+      - name: metric_group
+        description: Either 'levels' (thousands) or 'rates' (percentages)
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ["levels", "rates"]
+
+      - name: row_category
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ["rate", "thousands", "thousands_partial"]
+
+      - name: parse_success
+        description: Should always be true -- see parse_to_silver.py
+        data_tests:
+          - accepted_values:
+              values: [true]
