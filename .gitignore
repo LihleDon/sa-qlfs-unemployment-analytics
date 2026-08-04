@@ -222,3 +222,4 @@ data/
 silver_gold/dbt_packages/
 silver_gold/target/
 silver_gold/logs/
+silver_gold/edr_target/
